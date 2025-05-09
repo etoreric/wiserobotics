@@ -358,11 +358,30 @@ footer {
     .carousel, .carousel-item {
         height: 80vh;
     }
-    
-    .carousel-caption {
-        padding: 10px;
-        bottom: 10%;
-    }
+
+.carousel-caption {
+                display: block !important;
+                bottom: 10%;
+                padding: 10px;
+                left: 5%;
+                right: 5%;
+                width: 90%;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 1.2rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .carousel-caption .btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.8rem;
+            }
 
     .carousel-item img {
         object-fit: cover;
