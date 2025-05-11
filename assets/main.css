@@ -1,0 +1,434 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #FBFADA;
+    --nav-footer-color: #435668;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+    padding-top: 40px; /* This matches navbar height */
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: var(--nav-footer-color);
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--secondary-color) !important;
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-link {
+    color: var(--secondary-color) !important;
+    transition: all 0.3s ease;
+    margin: 0 10px;
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
+    transform: translateY(-2px);
+}
+
+/* Hamburger Menu */
+.navbar-toggler {
+    border: none;
+    color: var(--secondary-color);
+    position: absolute;
+    right: 15px;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+ /* Hero Carousel with Bridge Image */
+ .carousel {
+    height: 80vh;
+    overflow: hidden;
+    margin-top: -56px; /* Remove gap */
+    position: relative;
+}
+
+.carousel-item {
+    height: 80vh;
+    transition: opacity 1s ease-in-out;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;object-fit: cover;
+    object-position: center center; /* or 'top' for portraits */
+}
+
+/* Bridge image between nav and carousel */
+.bridge-image {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 200px;
+    height: auto;
+    margin-top: 10px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateX(-50%) translateY(0px); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+    100% { transform: translateX(-50%) translateY(0px); }
+}
+
+.carousel-caption {
+    background-color: rgba(67, 86, 104, 0.7);
+    border-radius: 10px;
+    bottom: 6%;
+    padding: 20px;
+    z-index: 5;
+}
+
+/* Section Styles */
+section {
+    padding: 80px 0;
+    scroll-margin-top: 70px;
+}
+
+.section-title {
+    color: var(--nav-footer-color);
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+/* About Section */
+.about-img {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-img:hover {
+    transform: scale(1.03);
+}
+
+/* Courses Section */
+.course-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+    height: 100%;
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.course-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.course-title {
+    color: var(--nav-footer-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+/* Why Choose Us */
+.feature-box {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 10px;
+    background-color: var(--secondary-color);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+/* Student Life */
+.gallery-img {
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.gallery-img img {
+    transition: all 0.3s ease;
+}
+
+.gallery-img:hover img {
+    transform: scale(1.05);
+}
+
+/* Video Section */
+.video-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px; /* Default border radius */
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .video-container {
+        border-radius: 10px; /* Smaller border radius for mobile */
+    }
+}
+
+
+
+
+.partner-img {
+    height: 150px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.partner-img:hover {
+    filter: grayscale(30%);
+    transform: scale(1.1);
+}
+
+
+
+/* Contact Section */
+.contact-info {
+    background-color: var(--secondary-color);
+    padding: 30px;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.contact-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+}
+
+/* Footer */
+footer {
+    background-color: var(--nav-footer-color);
+    color: white;
+    padding: 40px 0 20px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+    padding-left: 5px;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.back-to-top.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background-color: var(--nav-footer-color);
+    transform: translateY(-5px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .carousel, .carousel-item {
+        height: 80vh;
+    }
+
+    .carousel-item img {
+        object-fit: cover;
+        object-position: center top; /* Focus on top portion */
+        height: 80vh;
+        width: 100%;
+    }
+    
+    .carousel-caption {
+        bottom: 6%;
+    }
+    
+}
+
+@media (max-width: 768px) {
+
+    .carousel-caption {
+        bottom: 6%;
+    }
+
+    .carousel, .carousel-item {
+        height: 80vh;
+    }
+    
+    .carousel-caption h2 {
+        font-size: 1.5rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 0.9rem;
+    }
+
+    .carousel-item img {
+        object-fit: cover;
+        object-position: center top; /* Focus on top portion */
+        height: 80vh;
+        width: 100%;
+    }
+    
+    section {
+        padding: 60px 0;
+    }
+    
+    .navbar-brand span {
+        display: none;
+    }
+    
+    .logo-img {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel, .carousel-item {
+        height: 80vh;
+    }
+    
+    .carousel-caption {
+        bottom: 6%;
+        object-fit: cover;
+        object-position: center center; /* or 'top' for portraits */
+    }
+
+    .carousel-item img {
+        object-fit: cover;
+        object-position: center top; /* Focus on top portion */
+        height: 80vh;
+        width: 100%;
+    }
+
+    .carousel-caption {
+        display: block !important;
+        bottom: 10%;
+        padding: 10px;
+        left: 5%;
+        right: 5%;
+        width: 90%;
+    }
+    
+    .carousel-caption h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .carousel-caption .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
