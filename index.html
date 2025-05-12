@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/img/logo 1.png">
+    <title>Wise Robotic & STEM | We learn to earn</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+    <link rel="stylesheet" href="assets/main.css">
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar">
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/img/logo 1.png" alt="Logo" class="logo-img">
+                <span class="logo">Wise Robotic & STEM</span>
+            </a>
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="programs.html">Programs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="student.html">Student Life</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="choose.html">Why Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="videos.html">Videos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <p id="successMessage" style="display: none; color: green;">Thank you! Your message has been sent.</p>
+
+
+    <!-- Hero Carousel with Bridge Image -->
+    <section id="home">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="assets/img/r4.jpg" class="d-block w-100" alt="Robotics Technology">
+                    <div class="carousel-caption d-none d-md-block text-center">
+                        <h2>Innovative STEM Education</h2>
+                        <p>Learn from industry experts with cutting-edge technology</p>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/img/r3.jpg" class="d-block w-100" alt="Engineering Workshop">
+                    <div class="carousel-caption d-none d-md-block text-center">
+                        <h2>Hands-on Learning Experience</h2>
+                        <p>Practical training with real-world applications</p>
+                        <a href="#contact" class="btn btn-primary">Contact Us</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/img/r2.jpg" class="d-block w-100" alt="Future AI">
+                    <div class="carousel-caption d-none d-md-block text-center">
+                        <h2>Shape the Future with Us</h2>
+                        <p>Join our community of innovators and creators</p>
+                        <a href="#contact" class="btn btn-primary">Enroll Now</a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    
+    
+    <!-- About Section -->
+    <section id="about" class="bg-light">
+        <div class="container">
+            <h2 class="text-center section-title fade-in">About Wise Robotic & STEM</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0 fade-in">
+                    <img src="https://i.pinimg.com/736x/6e/71/06/6e71067b2a74904828d15446d0363ca5.jpg" alt="About Wise Robotic & STEM" class="img-fluid about-img">
+                </div>
+                <div class="col-lg-6 fade-in">
+                    <h3>Where Technology Meets Creativity</h3>
+                    <p>WiseRobotics   is   an   innovative   educational
+                        dedicated to teaching robotics, artificial intelligence, and coding to children. 
+                        We believe in empowering young minds with the skills they need to thrive in the 
+                        modern world of technology. </p>
+                    <p>Through hands-on projects, interactive learning, and creative problem-solving, 
+                        WiseRobotics nurtures the next generation of engineers, innovators, and thinkers. 
+                        Our motto, "We Learn to Earn," reflects our commitment to providing valuable skills 
+                        that can turn knowledge into opportunities for the future.</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Comprehensive curriculum from electronics to animation</li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Industry-standard tools and software</li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Project-based learning approach</li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Certified instructors with industry experience</li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i> Pathways to careers and higher education</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses">
+        <div class="container">
+            <h2 class="text-center section-title fade-in">Our Courses</h2>
+            <p class="text-center mb-5 fade-in">Comprehensive programs combining technical and creative STEM disciplines</p>
+            
+            <div class="row">
+                <!-- Course 1 -->
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="card course-card">
+                        <img src="assets/img/c1.jpg" class="card-img-top course-img" alt="Basic Electronics">
+                        <div class="card-body">
+                            <h5 class="card-title course-title">Basic Electronics (Levels 1-5)</h5>
+                            <p class="card-text">Master fundamental to advanced electronics concepts, circuit design, and prototyping through our progressive 5-level program.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">Beginner to Advanced</span>
+                                <span class="text-muted">12 Weeks/Level</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="card course-card">
+                        <img src="assets/img/c2.jpg" class="card-img-top course-img" alt="Coding">
+                        <div class="card-body">
+                            <h5 class="card-title course-title">Coding Fundamentals</h5>
+                            <p class="card-text">Learn programming basics with Block coding, Python and JavaScript, progressing to algorithms and data structures.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">Beginner to Advanced</span>
+                                <span class="text-muted">14 Weeks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 3 -->
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="card course-card">
+                        <img src="assets/img/c3.jpg" class="card-img-top course-img" alt="AI Usage">
+                        <div class="card-body">
+                            <h5 class="card-title course-title">AI Applications</h5>
+                            <p class="card-text">Practical applications of Artificial Intelligence including machine learning, computer vision, and natural language processing.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">Beginner to Advanced</span>
+                                <span class="text-muted">14 Weeks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 4 -->
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="card course-card">
+                        <img src="assets/img/c5.jpg" class="card-img-top course-img" alt="Mobile App Development">
+                        <div class="card-body">
+                            <h5 class="card-title course-title">Mobile & Website Development</h5>
+                            <p class="card-text">Build iOS and Android apps and Websites using modern frameworks with emphasis on UI/UX design principles, PHP Laravel and Python Django.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">Beginner to Advanced</span>
+                                <span class="text-muted">14 Weeks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 5 -->
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="card course-card">
+                        <img src="assets/img/c4.jpg" class="card-img-top course-img" alt="Robotics">
+                        <div class="card-body">
+                            <h5 class="card-title course-title">Robotics Engineering</h5>
+                            <p class="card-text">Design, build and program robots integrating mechanical systems, electronics, and software.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">Beginner to Advanced</span>
+                                <span class="text-muted">14 Weeks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 6 -->
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="card course-card">
+                        <img src="assets/img/c6.jpg" class="card-img-top course-img" alt="2D & 3D Animation">
+                        <div class="card-body">
+                            <h5 class="card-title course-title">2D & 3D Animation</h5>
+                            <p class="card-text">Master digital animation techniques from traditional 2D to modern 3D modeling and rendering.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">All Levels</span>
+                                <span class="text-muted">14 Weeks</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4 fade-in">
+                <a href="#contact" class="btn btn-primary btn-lg">Enroll Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Life Section -->
+    <section id="student-life" class="bg-light">
+        <div class="container">
+            <h2 class="text-center section-title fade-in">Student Life</h2>
+            <p class="text-center mb-5 fade-in">Experience our vibrant STEM learning community</p>
+            
+            <div class="row">
+                <div class="col-md-4 fade-in">
+                    <div class="gallery-img">
+                        <img src="assets/img/ab.jpg" alt="STEM Lab" class="img-fluid rounded">
+                    </div>
+                    <h4>State-of-the-Art Labs</h4>
+                    <p>Learn in our fully-equipped electronics, robotics, and computer labs with the latest technology.</p>
+                </div>
+                
+                <div class="col-md-4 fade-in">
+                    <div class="gallery-img">
+                        <img src="assets/img/s1.jpg" alt="Hackathons" class="img-fluid rounded">
+                    </div>
+                    <h4>Tech Competitions</h4>
+                    <p>Participate in hackathons, robotics competitions, and animation festivals to showcase your skills.</p>
+                </div>
+                
+                <div class="col-md-4 fade-in">
+                    <div class="gallery-img">
+                        <img src="assets/img/s2.jpg" alt="Workshops" class="img-fluid rounded">
+                    </div>
+                    <h4>Expert Workshops</h4>
+                    <p>Regular workshops with industry professionals from tech and creative fields.</p>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-md-4 fade-in">
+                    <div class="gallery-img">
+                        <img src="assets/img/s3.jpg" alt="Project Showcase" class="img-fluid rounded">
+                    </div>
+                    <h4>Project Showcases</h4>
+                    <p>Present your work at our bi-annual STEM showcase events to peers and industry guests.</p>
+                </div>
+                
+                <div class="col-md-4 fade-in">
+                    <div class="gallery-img">
+                        <img src="assets/img/s4.jpg" alt="Animation Studio" class="img-fluid rounded">
+                    </div>
+                    <h4>Creative Studios</h4>
+                    <p>Access our animation and design studios with professional-grade software and equipment.</p>
+                </div>
+                
+                <div class="col-md-4 fade-in">
+                    <div class="gallery-img">
+                        <img src="assets/img/s5.jpg" alt="STEM Clubs" class="img-fluid rounded">
+                    </div>
+                    <h4>Special Interest Clubs</h4>
+                    <p>Join robotics teams, coding clubs, or animation groups based on your interests.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-us">
+        <div class="container">
+            <h2 class="text-center section-title fade-in">Why Study With Us?</h2>
+            <p class="text-center mb-5 fade-in">We combine technical excellence with creative innovation</p>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4 fade-in">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h4>Integrated Curriculum</h4>
+                        <p>Unique programs that combine technical STEM skills with creative digital arts.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4 fade-in">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h4>Industry Experts</h4>
+                        <p>Learn from instructors with real-world experience in tech and creative industries.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4 fade-in">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Collaborative Learning</h4>
+                        <p>Work in teams combining technical and creative skills.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4 fade-in">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h4>Innovation Focus</h4>
+                        <p>Emphasis on creative problem-solving and innovative thinking.</p>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos" class="bg-light">
+        <div class="container">
+            <h2 class="text-center section-title fade-in">Featured Videos</h2>
+            <p class="text-center mb-5 fade-in">See our programs and student work in action</p>
+            
+            <div class="row">
+
+                <!-- Video 1 -->
+          <div class="col-md-6 mb-4 reveal fade-left">
+              <div class="video-container">
+                  <video controls>
+                      <source src="assets/img/v1.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <h4 class="mt-3">Student Projects</h4>
+                    <p>Highlights from our annual STEM showcase featuring robotics and animation projects.</p>
+              </div>
+          </div>
+          <!-- Video 2 -->
+          <div class="col-md-6 mb-4 reveal fade-right">
+              <div class="video-container">
+                  <video controls>
+                      <source src="assets/img/v2.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <h4 class="mt-3">Student Projects</h4>
+                    <p>Highlights from our annual STEM showcase featuring robotics and animation projects.</p>
+              </div>
+          </div>
+
+          <!-- Video 1 -->
+          <div class="col-md-6 mb-4 reveal fade-left">
+              <div class="video-container">
+                  <video controls>
+                      <source src="assets/img/v3.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <h4 class="mt-3">Student Projects</h4>
+                    <p>Explore our STEM labs, robotics workshops, and animation studios.</p>
+              </div>
+          </div>
+          <!-- Video 2 -->
+          <div class="col-md-6 mb-4 reveal fade-right">
+              <div class="video-container">
+                  <video controls>
+                      <source src="assets/img/v4.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <h4 class="mt-3">Student Projects</h4>
+                <p>Explore our STEM labs, robotics workshops, and animation studios.</p>
+              </div>
+          </div>
+   
+        </div>
+    </div>
+</section>
+
+
+
+
+    <!-- Partners -->
+    <section id="partners" class="section">
+        <div class="container">
+            <h2 class="text-center section-title fade-in">Partners</h2>
+            <p class="text-center mb-5 fade-in">We are currently teaching robotics in several schools, 
+                 where students are actively engaged in hands-on learning experiences that blend science, 
+                 technology, engineering, and mathematics (STEM). </p>
+            <p>
+                These programs are designed to foster creativity, critical thinking, and problem-solving 
+                skills through the use of programmable robots and interactive lessons. Our goal is to equip 
+                the next generation with the foundational skills needed for the evolving tech-driven world.
+            </p>
+            
+            <div class="row text-center">
+                <div class="col-6 col-md-3 mb-4 animate-on-scroll">
+                    <img src="assets/img/sunny.jpg" alt="Nature Well" class="img-fluid partner-img">
+                    <p>SunnyRoses International School</p>
+                </div>
+                <div class="col-6 col-md-3 mb-4 animate-on-scroll">
+                    <img src="assets/img/vicgrace.jpg" alt="Organic Life" class="img-fluid partner-img">
+                    <p>Vicgrace International Montessori School</p>
+                </div>
+                <div class="col-6 col-md-3 mb-4 animate-on-scroll">
+                    <img src="assets/img/christ.jpg" alt="Pure Essence" class="img-fluid partner-img">
+                    <p>Christ Ambassadors School Of Excellence</p>
+                </div>
+                <div class="col-6 col-md-3 mb-4 animate-on-scroll">
+                    <img src="assets/img/master.jpg" alt="Green Harvest" class="img-fluid partner-img">
+                    <p>MasterChamps International Preschool</p>
+                </div>
+                <div class="col-6 col-md-3 mb-4 animate-on-scroll">
+                    <img src="assets/img/westland.jpg" alt="Green Harvest" class="img-fluid partner-img">
+                    <p>Westlands Community School</p>
+                </div>
+                <div class="col-6 col-md-3 mb-4 animate-on-scroll">
+                    <img src="assets/img/mothers.gif" alt="Green Harvest" class="img-fluid partner-img">
+                    <p>Mothers' Joy International School</p>
+                </div>
+                <div class="col-6 col-md-3 mb-4 animate-on-scroll">
+                    <img src="assets/img/victory.jpg" alt="Green Harvest" class="img-fluid partner-img">
+                    <p>Victory Standard School</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="text-center section-title fade-in">Contact Us</h2>
+            <p class="text-center mb-5 fade-in">Get in touch to learn more about our STEM programs</p>
+            
+            <div class="row">
+                <div class="col-lg-5 mb-4 mb-lg-0 fade-in">
+                    <div class="contact-info">
+                        <h4 class="mb-4">Contact Information</h4>
+                        
+                        <div class="d-flex align-items-start mb-4">
+                            <i class="fas fa-map-marker-alt contact-icon mt-1"></i>
+                            <div>
+                                <h5>Address</h5>
+                                <p>Old Ashongman, Pure Water road near Rose Wood Hotel</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start mb-4">
+                            <i class="fas fa-phone-alt contact-icon mt-1"></i>
+                            <div>
+                                <h5>Phone</h5>
+                                <p>+233 (24) 787-7676</p>
+                                <p>+233 (55) 370-0705</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start mb-4">
+                            <i class="fas fa-envelope contact-icon mt-1"></i>
+                            <div>
+                                <h5>Email</h5>
+                                <p>info@wiseroboticstem.edu</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start mb-4">
+                            <i class="fas fa-clock contact-icon mt-1"></i>
+                            <div>
+                                <h5>Hours</h5>
+                                <p>Monday - Saturday: 8:00 AM - 7:00 PM
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="col-lg-7 fade-in">
+                    <form id="contactForm" action="https://formspree.io/f/xblozqzd" method="POST">                  
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="interest" class="form-label">Program Interest</label>
+                            <select class="form-select" id="interest">
+                                <option value="">Select a program</option>
+                                <option value="electronics">Basic Electronics</option>
+                                <option value="coding">Coding Fundamentals</option>
+                                <option value="ai">AI Applications</option>
+                                <option value="mobile">Mobile App Development</option>
+                                <option value="robotics">Robotics Engineering</option>
+                                <option value="animation">2D & 3D Animation</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="4"></textarea>
+                        </div>
+                        
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="newsletter">
+                            <label class="form-check-label" for="newsletter">
+                                Subscribe to our newsletter
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="assets/img/logo 1.png" alt="Wise Robotic & STEM Logo" class="logo-img me-2">
+                        <h5 class="mb-0">Wise Robotic & STEM</h5>
+                    </div>
+                    <p>Bridging technology and creativity through innovative STEM education for the digital age.</p>
+                    <div class="social-icons">
+                        <a href="http://www.facebook.com/groups/3968194210082386/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="#home">Home</a>
+                        <a href="#about">About</a>
+                        <a href="#student-life">Student Life</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to our newsletter for updates on programs and events.</p>
+                    <form class="mt-3">
+                        <div class="input-group mb-3">
+                            <form id="contactForm" action="https://formspree.io/f/mbllpzjn" method="POST">
+                            <input type="email" class="form-control" placeholder="Your Email" aria-label="Your Email">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <hr class="mt-4 mb-4">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 Wise Robotic & STEM. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <span>Powered by </span><a class="text-info" href="https://etoreric.github.io/ricset/">Ricset</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Close navbar when clicking a link (for mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                    bsCollapse.hide();
+                }
+            });
+        });
+
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+    </script>
+
+
+
+      <!-- Custom JS to stop video on scroll -->
+<script>
+    document.addEventListener('scroll', function() {
+        const videos = document.querySelectorAll('video');
+        videos.forEach(video => {
+            const rect = video.getBoundingClientRect();
+            if (rect.top > window.innerHeight || rect.bottom < 0) {
+                video.pause();
+            }
+        });
+    });
+</script>
+
+
+
+<script>
+        const form = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    successMessage.style.display = 'block'; // Show success message
+                    form.reset(); // Clear the form
+                } else {
+                    alert('Oops! Something went wrong. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Oops! Something went wrong. Please try again.');
+            }
+        });
+    </script>
+  
+</body>
+</html>
