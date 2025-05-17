@@ -457,7 +457,7 @@
 
 
 
-    <!-- Contact Section -->
+<!-- Contact Section -->
     <section id="contact">
         <div class="container">
             <h2 class="text-center section-title fade-in">Contact Us</h2>
@@ -505,31 +505,31 @@
                 </div>
                 
                 <div class="col-lg-7 fade-in">
-                    <form id="contactForm" action="https://formspree.io/f/xblozqzd" method="POST">                  
+                    <form id="contactForm" action="https://formspree.io/f/xvgawllw" method="POST">                  
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" required>
+                                <input type="text" class="form-control" id="firstName" name="firstName" value="" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" required>
+                                <input type="text" class="form-control" id="lastName" name="lastName" value="" required>
                             </div>
                         </div>
                         
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" required>
+                            <input type="email" class="form-control" id="email" name="Email Address" value="" required>
                         </div>
                         
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone">
+                            <input type="tel" class="form-control" id="phone" name="Phone Number" value="">
                         </div>
                         
                         <div class="mb-3">
                             <label for="interest" class="form-label">Program Interest</label>
-                            <select class="form-select" id="interest">
+                            <select class="form-select" id="interest" name="Program">
                                 <option value="">Select a program</option>
                                 <option value="electronics">Basic Electronics</option>
                                 <option value="coding">Coding Fundamentals</option>
@@ -542,11 +542,11 @@
                         
                         <div class="mb-3">
                             <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="4"></textarea>
+                            <textarea class="form-control" id="message" name="Message" rows="4"></textarea>
                         </div>
                         
                         <div class="form-check mb-4">
-                            <input class="form-check-input" type="checkbox" id="newsletter">
+                            <input class="form-check-input" type="checkbox" id="newsletter" name="Newsletter" value="">
                             <label class="form-check-label" for="newsletter">
                                 Subscribe to our newsletter
                             </label>
@@ -554,10 +554,14 @@
                         
                         <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
                     </form>
+                     <p id="successMessage" style="display: none; color: green;">Thank you! Your message has been sent.</p>
                 </div>
             </div>
         </div>
     </section>
+
+
+
 
 
 
@@ -718,6 +722,29 @@
             }
         });
     </script>
+
+<script>
+  document.getElementById('myForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = {
+      username: document.getElementById('username').value,
+      password: document.getElementById('password').value
+    };
+    
+    fetch('/your-endpoint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+  });
+</script>
+
   
 </body>
 </html>
