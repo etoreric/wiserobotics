@@ -1,6 +1,6 @@
 (function () {
   const csrf = document.body.dataset.csrf;
-  const state = { content: { text: {}, images: {}, title: '' }, textFields: [], images: [], media: [], videos: [] };
+  const state = { content: { text: {}, images: {}, title: '' }, textFields: [], images: [], media: [], videos: [], messages: [] };
   const $ = (selector, root) => (root || document).querySelector(selector);
   const $$ = (selector, root) => Array.from((root || document).querySelectorAll(selector));
 
@@ -341,6 +341,79 @@
     renderVideoSelects();
   }
 
+  function renderMessages() {
+    const root = $('#message-list');
+    root.replaceChildren();
+    const count = state.messages.length;
+    $('#message-count').textContent = count;
+    $('#message-count-label').textContent = count + (count === 1 ? ' message' : ' messages');
+    if (!count) {
+      const empty = document.createElement('p');
+      empty.className = 'loading-note';
+      empty.textContent = 'No messages yet. New inquiries will appear here.';
+      root.append(empty);
+      return;
+    }
+    const unreadCount = state.messages.filter(message => !message.read).length;
+    $('#message-count').textContent = unreadCount;
+    $('#message-count-label').textContent = unreadCount + (unreadCount === 1 ? ' unread' : ' unread');
+
+    state.messages.forEach(message => {
+      const card = document.createElement('article');
+      card.className = 'message-card' + (message.read ? ' is-read' : ' is-unread');
+      const header = document.createElement('div');
+      header.className = 'message-header';
+      const details = document.createElement('div');
+      const name = document.createElement('h3');
+      name.textContent = message.name + (message.read ? '' : ' · New');
+      const meta = document.createElement('p');
+      meta.className = 'message-meta';
+      const interest = message.interest ? ' · ' + message.interest : '';
+      const newsletter = message.newsletter === 'yes' ? ' · Newsletter' : '';
+      meta.textContent = message.email + (message.phone ? ' · ' + message.phone : '') + interest + newsletter;
+      details.append(name, meta);
+      const actions = document.createElement('div');
+      actions.className = 'message-actions';
+      if (!message.read) {
+        const readButton = document.createElement('button');
+        readButton.type = 'button';
+        readButton.className = 'mark-read';
+        readButton.textContent = 'Mark read';
+        readButton.addEventListener('click', async () => {
+          try {
+            await api('/admin/api/messages/' + encodeURIComponent(message.id) + '/read', { method: 'PATCH' });
+            await reloadMessages();
+          } catch (error) { window.alert(error.message); }
+        });
+        actions.append(readButton);
+      }
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'delete-message';
+      deleteButton.textContent = 'Delete';
+      deleteButton.addEventListener('click', async () => {
+        if (!window.confirm('Delete this message?')) return;
+        try {
+          await api('/admin/api/messages/' + encodeURIComponent(message.id), { method: 'DELETE' });
+          await reloadMessages();
+        } catch (error) { window.alert(error.message); }
+      });
+      actions.append(deleteButton);
+      header.append(details, actions);
+      const body = document.createElement('p');
+      body.className = 'message-body';
+      body.textContent = message.message;
+      const footer = document.createElement('div');
+      footer.className = 'message-footer';
+      const stamp = document.createElement('span');
+      stamp.className = 'muted-count';
+      stamp.textContent = new Date(message.created_at).toLocaleString();
+      footer.append(stamp);
+      card.append(header, body, footer);
+      root.append(card);
+    });
+  }
+
   function showStatus(element, message, isError) {
     element.textContent = message;
     element.classList.toggle('error', Boolean(isError));
@@ -354,6 +427,11 @@
   async function reloadVideos() {
     state.videos = await api('/admin/api/videos');
     renderVideos();
+  }
+
+  async function reloadMessages() {
+    state.messages = await api('/admin/api/messages');
+    renderMessages();
   }
 
   function filterFields() {
@@ -436,6 +514,24 @@
     } catch (error) { showStatus($('#video-form-status'), error.message, true); }
   });
 
+  $('#export-messages').addEventListener('click', async () => {
+    try {
+      const response = await fetch('/admin/api/messages/export', { credentials: 'same-origin', headers: { 'X-CSRF-Token': csrf } });
+      if (!response.ok) throw new Error('Unable to export messages.');
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = 'messages.csv';
+      document.body.append(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      window.alert(error.message);
+    }
+  });
+
   async function start() {
     try {
       const [html, content] = await Promise.all([
@@ -449,7 +545,7 @@
       state.textFields = parseTextFields(html, content);
       state.images = parseImageSlots(html, content);
       renderCopy();
-      await Promise.all([reloadMedia(), reloadVideos()]);
+      await Promise.all([reloadMedia(), reloadVideos(), reloadMessages()]);
     } catch (error) {
       $$('.loading-note').forEach(note => { note.textContent = error.message; });
     }

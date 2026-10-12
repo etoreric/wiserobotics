@@ -140,6 +140,19 @@ button { color: inherit; }
 .muted-count { color: var(--muted); font-size: 11px; }
 .video-admin-layout { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(270px,.8fr); gap: clamp(23px, 4vw, 54px); align-items: start; }
 .video-admin-list { border-top: 1px solid var(--line); }
+.message-list { display: grid; gap: 12px; }
+.message-card { padding: 16px 18px; border: 1px solid var(--line); background: white; }
+.message-card.is-unread { border-left: 4px solid var(--orange); background: #fffaf2; }
+.message-header { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.message-header h3 { margin: 0; font: 600 15px var(--serif); }
+.message-meta { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+.message-body { margin: 14px 0 10px; color: var(--ink); white-space: pre-wrap; line-height: 1.6; }
+.message-footer { display: flex; justify-content: flex-end; }
+.message-actions { display: flex; gap: 10px; align-items: center; }
+.mark-read { background: transparent; border: 0; color: var(--forest); cursor: pointer; font-size: 11px; font-weight: 700; }
+.mark-read:hover { text-decoration: underline; }
+.delete-message { background: transparent; border: 0; color: #a35c4d; cursor: pointer; font-size: 11px; }
+.delete-message:hover { text-decoration: underline; }
 .video-admin-item { display: grid; grid-template-columns: 88px minmax(0,1fr); gap: 13px; padding: 15px 0; border-bottom: 1px solid var(--line); }
 .video-admin-item video,.video-admin-thumb { width: 88px; aspect-ratio: 16/10; object-fit: cover; background: #dce4dc; }
 .video-edit-fields { min-width: 0; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 7px 9px; }

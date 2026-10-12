@@ -216,7 +216,6 @@ footer a:hover{color:var(--accent)}
 .rv{opacity:0;transform:translateY(50px) rotateX(12deg);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
 .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:150;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))}
-html[data-page="home"] main>section:not(#home),
 html[data-page="about"] main>section:not(#about),
 html[data-page="programs"] main>section:not(#courses),
 html[data-page="student-life"] main>section:not(#student-life),
@@ -402,7 +401,7 @@ html[data-page]:not([data-page="home"]) main>.home-stats{display:none}
         <div class="row"><i class="fas fa-clock"></i><div><h5>Hours</h5><p>Monday - Saturday: 8:00 AM - 7:00 PM</p></div></div>
       </div>
       <div class="rv">
-        <form id="contactForm" class="glass" action="https://formspree.io/f/xvgawllw" method="POST">
+        <form id="contactForm" class="glass" action="/api/messages" method="POST">
           <div class="f2">
             <div class="field"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" required></div>
             <div class="field"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" required></div>

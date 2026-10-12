@@ -69,6 +69,16 @@ def init_db():
             "id TEXT PRIMARY KEY, name TEXT NOT NULL, path TEXT NOT NULL UNIQUE, "
             "kind TEXT NOT NULL, created_at TEXT NOT NULL)"
         )
+        connection.execute(
+            "CREATE TABLE IF NOT EXISTS messages ("
+            "id TEXT PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL, phone TEXT, "
+            "interest TEXT, message TEXT NOT NULL, newsletter TEXT, read INTEGER NOT NULL DEFAULT 0, "
+            "created_at TEXT NOT NULL)"
+        )
+        try:
+            connection.execute("SELECT read FROM messages LIMIT 1")
+        except sqlite3.DatabaseError:
+            connection.execute("ALTER TABLE messages ADD COLUMN read INTEGER NOT NULL DEFAULT 0")
         if not read_setting(connection, "secret_key"):
             write_setting(connection, "secret_key", secrets.token_hex(32))
         if read_setting(connection, "content") is None:
@@ -189,6 +199,129 @@ def public_content():
     return jsonify({key: content.get(key, fallback) for key, fallback in {
         "text": {}, "images": {}, "videos": [], "title": ""
     }.items()})
+
+
+@app.post("/api/messages")
+def receive_message():
+    payload = request.get_json(silent=True) or {}
+    if not payload and request.form:
+        payload = request.form.to_dict()
+    if not isinstance(payload, dict):
+        return jsonify(error="Please provide your name, email, and message."), 400
+    first_name = str(payload.get("firstName") or payload.get("first_name") or "").strip()
+    last_name = str(payload.get("lastName") or payload.get("last_name") or "").strip()
+    email = (
+        payload.get("email")
+        or payload.get("Email Address")
+        or payload.get("Email")
+        or ""
+    )
+    phone = (
+        payload.get("phone")
+        or payload.get("Phone Number")
+        or payload.get("Phone")
+        or ""
+    )
+    interest = (
+        payload.get("interest")
+        or payload.get("Program")
+        or payload.get("program")
+        or ""
+    )
+    message = (
+        payload.get("message")
+        or payload.get("Message")
+        or ""
+    )
+    newsletter = payload.get("newsletter")
+    if isinstance(newsletter, str):
+        newsletter = newsletter.lower()
+    elif newsletter is None:
+        newsletter = payload.get("Newsletter")
+        if isinstance(newsletter, str):
+            newsletter = newsletter.lower()
+    name = " ".join(part for part in (first_name, last_name) if part).strip()
+    email = str(email).strip()
+    phone = str(phone).strip()
+    interest = str(interest).strip()
+    message = str(message).strip()
+    if not name or not email or not message:
+        return jsonify(error="Please provide your name, email, and message."), 400
+    if len(message) > 5000:
+        return jsonify(error="Your message is too long."), 400
+    message_id = uuid.uuid4().hex
+    with db_connection() as connection:
+        connection.execute(
+            "INSERT INTO messages(id, name, email, phone, interest, message, newsletter, read, created_at) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                message_id,
+                name,
+                email,
+                phone or None,
+                interest or None,
+                message,
+                "yes" if newsletter in {"yes", "on", "true", "1"} else "no",
+                0,
+                datetime.now(timezone.utc).isoformat(),
+            ),
+        )
+    return jsonify({"ok": True, "id": message_id}), 201
+
+
+@app.get("/admin/api/messages")
+@admin_required
+def admin_messages():
+    with db_connection() as connection:
+        rows = connection.execute(
+            "SELECT * FROM messages ORDER BY read ASC, created_at DESC"
+        ).fetchall()
+    return jsonify([dict(row) for row in rows])
+
+
+@app.get("/admin/api/messages/export")
+@admin_required
+def export_messages():
+    csrf_required()
+    with db_connection() as connection:
+        rows = connection.execute(
+            "SELECT name, email, phone, interest, message, newsletter, read, created_at FROM messages ORDER BY created_at DESC"
+        ).fetchall()
+    output = []
+    headers = ["name", "email", "phone", "interest", "message", "newsletter", "read", "created_at"]
+    output.append(",".join('"' + value.replace('"', '""') + '"' for value in headers))
+    for row in rows:
+        values = [
+            row["name"], row["email"], row["phone"] or "", row["interest"] or "",
+            row["message"], row["newsletter"], "1" if row["read"] else "0", row["created_at"]
+        ]
+        output.append(",".join('"' + str(value).replace('"', '""') + '"' for value in values))
+    response = "\n".join(output)
+    return response, 200, {"Content-Type": "text/csv; charset=utf-8", "Content-Disposition": "attachment; filename=messages.csv"}
+
+
+@app.patch("/admin/api/messages/<message_id>/read")
+@admin_required
+def mark_message_read(message_id):
+    csrf_required()
+    with db_connection() as connection:
+        row = connection.execute("SELECT * FROM messages WHERE id = ?", (message_id,)).fetchone()
+        if not row:
+            return jsonify(error="Message not found."), 404
+        connection.execute("UPDATE messages SET read = 1 WHERE id = ?", (message_id,))
+    return jsonify(ok=True)
+
+
+@app.delete("/admin/api/messages/<message_id>")
+@admin_required
+def delete_message(message_id):
+    csrf_required()
+    with db_connection() as connection:
+        row = connection.execute("SELECT * FROM messages WHERE id = ?", (message_id,)).fetchone()
+        if not row:
+            return jsonify(error="Message not found."), 404
+        connection.execute("DELETE FROM messages WHERE id = ?", (message_id,))
+    return jsonify(ok=True)
 
 
 @app.route("/admin/login", methods=["GET", "POST"])
