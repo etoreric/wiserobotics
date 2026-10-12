@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b23">
+  <title>{{ 'Set up your admin' if setup else 'Admin sign in' }} | Wise Robotic</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body class="auth-body">
+  <main class="auth-shell">
+    <a class="auth-brand" href="/"><span class="brand-mark">W</span><span>WISE ROBOTIC <small>STEM ADMIN</small></span></a>
+    <section class="auth-panel">
+      <span class="section-kicker">{{ 'FIRST-TIME SETUP' if setup else 'ADMINISTRATOR ACCESS' }}</span>
+      <h1>{{ 'Create your admin password' if setup else 'Welcome back.' }}</h1>
+      <p class="auth-intro">{{ 'Set a private password to protect your content dashboard.' if setup else 'Sign in to manage your website content and media.' }}</p>
+      {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
+      <form method="post" class="auth-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <label for="password">{{ 'Password' if setup else 'Admin password' }}</label>
+        <input id="password" name="password" type="password" minlength="{{ 12 if setup else 1 }}" autocomplete="{{ 'new-password' if setup else 'current-password' }}" required autofocus>
+        {% if setup %}
+          <label for="confirm-password">Confirm password</label>
+          <input id="confirm-password" name="confirm_password" type="password" minlength="12" autocomplete="new-password" required>
+          <p class="field-hint">Use at least 12 characters. The password is stored as a one-way hash.</p>
+        {% endif %}
+        <button class="action-button action-primary" type="submit">{{ 'Create password' if setup else 'Sign in' }} <span aria-hidden="true">&rarr;</span></button>
+      </form>
+      <a class="back-link" href="/">&larr; Back to website</a>
+    </section>
+    <p class="auth-foot">WISE ROBOTIC &amp; STEM <span>·</span> CONTENT MANAGEMENT</p>
+  </main>
+</body>
+</html>

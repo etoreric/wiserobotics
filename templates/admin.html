@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b23">
+  <title>Content Studio | Wise Robotic</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body class="dashboard" data-csrf="{{ csrf_token }}">
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <a class="auth-brand" href="/"><span class="brand-mark">W</span><span>WISE ROBOTIC <small>CONTENT STUDIO</small></span></a>
+      <span class="nav-caption">WORKSPACE</span>
+      <nav class="side-nav" aria-label="Admin sections">
+        <button class="side-link active" data-panel="overview"><span class="nav-icon">◫</span>Overview</button>
+        <button class="side-link" data-panel="copy"><span class="nav-icon">T</span>Page text <span class="nav-count" id="text-count">—</span></button>
+        <button class="side-link" data-panel="media"><span class="nav-icon">▧</span>Media library <span class="nav-count" id="media-count">—</span></button>
+        <button class="side-link" data-panel="videos"><span class="nav-icon">▷</span>Video playlist <span class="nav-count" id="video-count">—</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <span class="status-dot"></span><span>Changes save to this site</span>
+        <a class="visit-site" href="/" target="_blank" rel="noreferrer">View live website <span>↗</span></a>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div><span class="section-kicker">WISE ROBOTIC &amp; STEM</span><strong>Content studio</strong></div>
+        <form action="{{ url_for('admin_logout') }}" method="post">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button class="signout-button" type="submit">Sign out <span aria-hidden="true">↗</span></button>
+        </form>
+      </header>
+
+      <section class="panel active" id="panel-overview">
+        <div class="page-heading"><div><span class="section-kicker">YOUR WEBSITE</span><h1>Good work starts here.</h1><p>Keep the public site current, clear, and full of the work students make.</p></div><a class="action-button action-primary" href="/" target="_blank" rel="noreferrer">Open website <span>↗</span></a></div>
+        <div class="overview-stats">
+          <article class="overview-stat"><span>EDITABLE COPY</span><strong id="overview-text-count">—</strong><small>text items on your page</small></article>
+          <article class="overview-stat"><span>MEDIA FILES</span><strong id="overview-media-count">—</strong><small>images and video files</small></article>
+          <article class="overview-stat"><span>FEATURED VIDEOS</span><strong id="overview-video-count">—</strong><small>in your public playlist</small></article>
+        </div>
+        <div class="overview-lower">
+          <div class="section-heading"><div><span class="section-kicker">QUICK ACCESS</span><h2>What would you like to update?</h2></div></div>
+          <div class="quick-links">
+            <button class="quick-link" data-panel="copy"><span class="quick-symbol">T</span><span><strong>Edit page text</strong><small>Update headings, descriptions, and labels</small></span><span class="quick-arrow">→</span></button>
+            <button class="quick-link" data-panel="media"><span class="quick-symbol">＋</span><span><strong>Upload media</strong><small>Add images and videos to your library</small></span><span class="quick-arrow">→</span></button>
+            <button class="quick-link" data-panel="videos"><span class="quick-symbol">▷</span><span><strong>Manage videos</strong><small>Curate the featured player and playlist</small></span><span class="quick-arrow">→</span></button>
+          </div>
+        </div>
+        <p class="dashboard-note"><span>i</span> Your uploaded files and changes are stored alongside this Flask app.</p>
+      </section>
+
+      <section class="panel" id="panel-copy">
+        <div class="page-heading"><div><span class="section-kicker">SITE CONTENT</span><h1>Page text</h1><p>Edit visible copy directly. Search by wording or section, then save your changes.</p></div><button id="save-copy" class="action-button action-primary" type="button">Save changes <span>↗</span></button></div>
+        <div class="toolbar"><label class="search-field"><span>⌕</span><input id="copy-search" type="search" placeholder="Find text on the page..." autocomplete="off"></label><span id="copy-status" class="save-status" aria-live="polite"></span></div>
+        <div id="copy-fields" class="copy-groups"><p class="loading-note">Loading editable copy...</p></div>
+      </section>
+
+      <section class="panel" id="panel-media">
+        <div class="page-heading"><div><span class="section-kicker">UPLOADS &amp; IMAGES</span><h1>Media library</h1><p>Upload artwork and clips, then assign images to any image slot on the website.</p></div><button id="save-media-settings" class="action-button action-primary" type="button">Save assignments <span>↗</span></button></div>
+        <span id="media-save-status" class="save-status" aria-live="polite"></span>
+        <label class="upload-zone" for="media-upload" id="upload-zone"><span class="upload-symbol">↑</span><strong>Choose files to upload</strong><span>JPG, PNG, GIF, WebP, MP4, or WebM · Up to 200 MB each</span><input id="media-upload" type="file" accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm" multiple></label>
+        <div id="upload-status" class="save-status" aria-live="polite"></div>
+        <div class="media-toolbar"><div><span class="section-kicker">IMAGE SLOTS</span><h2>Website images</h2></div><label class="search-field"><span>⌕</span><input id="image-search" type="search" placeholder="Filter images..." autocomplete="off"></label></div>
+        <div id="image-slots" class="image-slot-list"><p class="loading-note">Loading image slots...</p></div>
+        <div class="media-toolbar library-heading"><div><span class="section-kicker">YOUR ASSETS</span><h2>Uploaded media</h2></div><span id="library-count" class="muted-count"></span></div>
+        <div id="media-library" class="media-grid"><p class="loading-note">Loading media library...</p></div>
+      </section>
+
+      <section class="panel" id="panel-videos">
+        <div class="page-heading"><div><span class="section-kicker">FEATURED PLAYER</span><h1>Video playlist</h1><p>Choose the order and titles for the featured video player on your homepage.</p></div></div>
+        <div class="video-admin-layout">
+          <div><div class="section-heading"><div><span class="section-kicker">NOW FEATURED</span><h2>Your playlist</h2></div><span id="playlist-count" class="muted-count"></span></div><div id="video-list" class="video-admin-list"><p class="loading-note">Loading videos...</p></div></div>
+          <form id="add-video-form" class="add-video-form">
+            <span class="section-kicker">ADD TO PLAYLIST</span><h2>Feature a video</h2>
+            <label for="video-title">Title</label><input id="video-title" name="title" maxlength="200" required placeholder="e.g. Robot demo day">
+            <label for="video-description">Description</label><textarea id="video-description" name="description" maxlength="1000" rows="4" placeholder="A short note about this video"></textarea>
+            <label for="video-source">Video file</label><select id="video-source" name="src" required><option value="">Upload a video first</option></select>
+            <label for="video-poster">Poster image <span class="optional">Optional</span></label><select id="video-poster" name="poster"><option value="">No poster image</option></select>
+            <button class="action-button action-primary" type="submit">Add to playlist <span>＋</span></button>
+            <p id="video-form-status" class="save-status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+      <footer class="admin-footer"><span>WISE ROBOTIC &amp; STEM</span><span>CONTENT STUDIO</span></footer>
+    </main>
+  </div>
+  <script src="{{ url_for('static', filename='admin.js') }}" defer></script>
+</body>
+</html>

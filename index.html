@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="assets/img/logo 1.png">
+<title>Wise Robotic & STEM | We learn to earn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script defer src="/assets/page-view.js"></script>
+<style>
+:root{
+  --bg:#05060f; --ink:#e9ecff; --muted:#9aa3c7;
+  --accent:#22d3ee; --accent2:#a855f7; --accent3:#f59e0b;
+  --glass:rgba(16,20,48,.55); --line:rgba(255,255,255,.12);
+  --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;overflow-x:hidden;line-height:1.6}
+h1,h2,h3,h4,.brand{font-family:'Sora',sans-serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+#scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main,nav,footer{position:relative;z-index:2}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 20% 10%,rgba(34,211,238,.10),transparent 50%),radial-gradient(ellipse at 90% 60%,rgba(168,85,247,.12),transparent 55%)}
+
+/* loader */
+#loader{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;transition:opacity .8s,visibility .8s}
+#loader.done{opacity:0;visibility:hidden}
+.loader-core{width:70px;height:70px;border:3px solid transparent;border-top-color:var(--accent);border-bottom-color:var(--accent2);border-radius:50%;animation:spin 1s linear infinite}
+.loader-txt{margin-top:22px;letter-spacing:.4em;font-size:.75rem;color:var(--muted);text-align:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* cursor */
+.cursor,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:200;border-radius:50%;transform:translate(-50%,-50%)}
+.cursor{width:8px;height:8px;background:var(--accent)}
+.cursor-ring{width:38px;height:38px;border:1px solid var(--accent);transition:width .25s,height .25s,background .25s}
+.cursor-ring.hot{width:64px;height:64px;background:rgba(34,211,238,.12)}
+@media(hover:none){.cursor,.cursor-ring{display:none}}
+
+/* nav */
+nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1180px,calc(100% - 28px));z-index:50;
+  display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-radius:999px;
+  background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--line);transition:.3s}
+nav.scrolled{background:rgba(5,6,15,.82)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em}
+.brand img{height:34px;width:auto}
+.menu{display:flex;gap:4px;list-style:none}
+.menu a{padding:8px 14px;border-radius:999px;font-size:.92rem;color:var(--muted);transition:.25s}
+.menu a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.menu a.cta{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04050c;font-weight:700}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.4rem;cursor:pointer}
+@media(max-width:900px){
+  .burger{display:block}
+  .menu{position:absolute;top:64px;left:0;right:0;flex-direction:column;background:rgba(5,6,15,.95);border:1px solid var(--line);border-radius:22px;padding:12px;display:none}
+  .menu.open{display:flex}
+}
+
+/* layout */
+section{padding:120px 0;position:relative}
+.wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}
+.eyebrow{display:inline-block;font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.title{font-size:clamp(2rem,4.6vw,3.6rem);line-height:1.08;font-weight:800;margin-bottom:18px}
+.grad{background:linear-gradient(120deg,var(--accent),var(--accent2) 60%,var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);max-width:640px;font-size:1.05rem}
+.center{text-align:center}.center .lead{margin:0 auto}
+
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-weight:700;border:0;cursor:pointer;font-family:inherit;font-size:1rem;transition:transform .25s,box-shadow .25s}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04050c;box-shadow:0 10px 40px -10px var(--accent)}
+.btn.primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 18px 50px -10px var(--accent2)}
+.btn.ghost{background:transparent;color:#fff;border:1px solid var(--line)}
+.btn.ghost:hover{background:rgba(255,255,255,.08)}
+
+/* hero */
+#home{min-height:100vh;display:flex;align-items:center;padding-top:130px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,7vw,5.6rem);line-height:1;font-weight:800;margin-bottom:22px}
+.hero .lead{margin-bottom:34px;font-size:1.15rem}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.motto{margin-top:38px;display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.9rem}
+.motto i{color:var(--accent)}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);width:26px;height:42px;border:2px solid var(--muted);border-radius:20px}
+.scroll-hint::after{content:"";position:absolute;top:8px;left:50%;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--accent);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(16px)}}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-spacer{display:none}}
+
+/* glass + tilt */
+.glass{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:var(--radius)}
+.tilt{transform-style:preserve-3d;transition:transform .15s ease-out,box-shadow .3s;will-change:transform}
+.tilt:hover{box-shadow:0 30px 80px -30px rgba(34,211,238,.45)}
+.tilt .pop{transform:translateZ(40px)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:-20px}
+.stat{padding:28px;text-align:center}
+.stat b{font-family:'Sora';font-size:2.8rem;display:block}
+.stat span{color:var(--muted);font-size:.9rem}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-img{position:relative;perspective:1000px}
+.about-img .frame{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:0 40px 100px -30px rgba(168,85,247,.5)}
+.about-img img{width:100%;aspect-ratio:4/3.2;object-fit:cover}
+.float-badge{position:absolute;right:-14px;bottom:-22px;padding:16px 22px;font-family:'Sora';font-weight:700;animation:bob 4s ease-in-out infinite}
+.float-badge small{display:block;color:var(--accent);font-family:'Space Grotesk';font-weight:500}
+@keyframes bob{50%{transform:translateY(-12px)}}
+.checks{list-style:none;margin-top:22px;display:grid;gap:12px}
+.checks li{display:flex;gap:12px;align-items:flex-start;color:var(--muted)}
+.checks i{color:var(--accent);margin-top:5px}
+.about-grid p{color:var(--muted);margin-bottom:14px}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:40px}}
+
+/* courses */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px;perspective:1400px}
+.card{overflow:hidden;display:flex;flex-direction:column}
+.card .img{height:190px;overflow:hidden;position:relative}
+.card .img img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.card:hover .img img{transform:scale(1.12)}
+.card .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(5,6,15,.9))}
+.card .body{padding:24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h3{font-size:1.2rem}
+.card p{color:var(--muted);font-size:.95rem;flex:1}
+.meta{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:var(--muted)}
+.chip{padding:5px 12px;border-radius:999px;background:rgba(34,211,238,.12);color:var(--accent);font-weight:600}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.cards{grid-template-columns:1fr}}
+
+/* student life */
+.life{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px;perspective:1400px}
+.life .item{overflow:hidden}
+.life img{width:100%;height:230px;object-fit:cover}
+.life .txt{padding:20px}
+.life h4{margin-bottom:6px}
+.life p{color:var(--muted);font-size:.93rem}
+@media(max-width:900px){.life{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.life{grid-template-columns:1fr}}
+
+/* why */
+.why{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:56px;perspective:1200px}
+.feat{padding:34px 26px;text-align:left}
+.ico{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;font-size:1.5rem;color:#04050c;background:linear-gradient(135deg,var(--accent),var(--accent2));margin-bottom:20px}
+.feat h4{margin-bottom:8px}.feat p{color:var(--muted);font-size:.94rem}
+@media(max-width:1000px){.why{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.why{grid-template-columns:1fr}}
+
+/* videos */
+.video-showcase{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(260px,.8fr);gap:18px;margin-top:56px;text-align:left}
+.video-feature{overflow:hidden;padding:12px}
+.video-feature video{width:100%;aspect-ratio:16/9;display:block;object-fit:cover;background:#000;border-radius:12px}
+.video-caption{padding:18px 10px 8px}
+.video-caption h3{font-size:1.25rem;margin-bottom:5px}
+.video-caption p,.video-empty p{color:var(--muted);font-size:.94rem}
+.video-playlist{padding:10px;display:flex;flex-direction:column;gap:5px;max-height:480px;overflow:auto}
+.video-choice{display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:center;width:100%;padding:12px;text-align:left;color:var(--ink);background:transparent;border:1px solid transparent;border-radius:12px;font:inherit;cursor:pointer;transition:.2s}
+.video-choice:hover,.video-choice.active{background:rgba(34,211,238,.09);border-color:rgba(34,211,238,.35)}
+.video-choice .play-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:rgba(34,211,238,.14);color:var(--accent)}
+.video-choice strong,.video-choice small{display:block}
+.video-choice small{margin-top:3px;color:var(--muted);font-size:.8rem}
+.video-empty{min-height:250px;display:grid;place-content:center;justify-items:center;text-align:center;padding:30px}
+.video-empty i{font-size:2rem;color:var(--accent);margin-bottom:14px}
+@media(max-width:800px){.video-showcase{grid-template-columns:1fr}.video-playlist{max-height:320px}}
+
+/* partners marquee */
+.marquee{overflow:hidden;margin-top:50px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;gap:22px;width:max-content;animation:slide 40s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.partner{width:230px;padding:22px;text-align:center;flex:none}
+.partner img{height:90px;width:100%;object-fit:contain;margin-bottom:12px;border-radius:12px;background:rgba(255,255,255,.92);padding:8px}
+.partner p{font-size:.88rem;color:var(--muted)}
+@keyframes slide{to{transform:translateX(-50%)}}
+.partners-copy{color:var(--muted);max-width:760px;margin:0 auto 10px}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:30px;margin-top:56px}
+.contact-map{height:360px;margin-top:24px;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:var(--glass)}
+.contact-map iframe{display:block;width:100%;height:100%;border:0;filter:invert(.88) hue-rotate(180deg) brightness(.82) contrast(1.05)}
+.info{padding:36px}
+.info .row{display:flex;gap:16px;margin-bottom:26px}
+.info .row i{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(34,211,238,.12);color:var(--accent);flex:none}
+.info h5{font-family:'Sora';margin-bottom:2px}
+.info p{color:var(--muted);font-size:.95rem}
+form.glass{padding:36px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{margin-bottom:16px}
+label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px}
+input,select,textarea{width:100%;padding:13px 16px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:#fff;font:inherit;transition:.25s}
+select option{background:#0c1030}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,211,238,.15)}
+.check{display:flex;gap:10px;align-items:center;margin-bottom:22px;color:var(--muted)}
+.check input{width:auto}
+#successMessage{display:none;margin-top:16px;color:#4ade80}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr}.f2{grid-template-columns:1fr}}
+
+/* footer */
+footer{padding:70px 0 30px;border-top:1px solid var(--line);background:rgba(5,6,15,.85);backdrop-filter:blur(10px)}
+.foot{display:grid;grid-template-columns:1.4fr .8fr 1.2fr;gap:40px}
+footer h5{font-family:'Sora';margin-bottom:14px}
+footer p,footer a{color:var(--muted);font-size:.93rem}
+footer a:hover{color:var(--accent)}
+.flinks{display:grid;gap:8px}
+.social{display:flex;gap:10px;margin-top:16px}
+.social a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line)}
+.news{display:flex;gap:8px;margin-top:12px}
+.news input{border-radius:999px}
+.copy{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:40px;padding-top:22px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+@media(max-width:800px){.foot{grid-template-columns:1fr}}
+
+.to-top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;z-index:60;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04050c;opacity:0;transform:translateY(20px);transition:.3s;pointer-events:none}
+.to-top.on{opacity:1;transform:none;pointer-events:auto}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(50px) rotateX(12deg);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:150;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))}
+html[data-page="home"] main>section:not(#home),
+html[data-page="about"] main>section:not(#about),
+html[data-page="programs"] main>section:not(#courses),
+html[data-page="student-life"] main>section:not(#student-life),
+html[data-page="why-us"] main>section:not(#why-us):not(#partners),
+html[data-page="videos"] main>section:not(#videos),
+html[data-page="contact"] main>section:not(#contact){display:none}
+html[data-page]:not([data-page="home"]) main>.home-stats{display:none}
+.menu a[aria-current="page"]{color:#fff;background:rgba(255,255,255,.08)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="loader"><div><div class="loader-core" style="margin:auto"></div><div class="loader-txt">BOOTING WISE ROBOTIC…</div></div></div>
+<div class="progress" id="progress"></div>
+<div class="cursor" id="cur"></div><div class="cursor-ring" id="ring"></div>
+<canvas id="scene"></canvas>
+<div class="grain"></div>
+
+<nav id="navbar">
+  <a class="brand" href="/"><img src="assets/img/logo 1.png" alt="Logo"><span>Wise Robotics &amp; Stem</span></a>
+  <button class="burger" id="burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  <ul class="menu" id="menu">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/programs">Programs</a></li>
+    <li><a href="/student-life">Student Life</a></li>
+    <li><a href="/why-us">Why Us</a></li>
+    <li><a href="/videos">Videos</a></li>
+    <li><a class="cta" href="/contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+<!-- HERO -->
+<section id="home" data-hue="0">
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow rv">Robotics · AI · Coding · Animation</span>
+        <h1 class="rv">We learn <br><span class="grad">to earn.</span></h1>
+        <p class="lead rv">Wise Robotic & STEM teaches children robotics, artificial intelligence, and coding through hands-on projects that turn knowledge into real opportunities.</p>
+        <div class="hero-actions rv">
+          <a href="/contact" class="btn primary">Enroll Now <i class="fas fa-arrow-right"></i></a>
+          <a href="/programs" class="btn ghost">Explore Courses</a>
+        </div>
+        <div class="motto rv"><i class="fas fa-bolt"></i> Move your mouse — our robot is watching.</div>
+      </div>
+      <div class="hero-spacer"></div>
+    </div>
+  </div>
+  <div class="scroll-hint"></div>
+</section>
+
+<!-- STATS -->
+<div class="wrap home-stats">
+  <div class="stats">
+    <div class="glass stat tilt rv"><b class="grad" data-count="6">0</b><span>Programs</span></div>
+    <div class="glass stat tilt rv"><b class="grad" data-count="5">0</b><span>Electronics Levels</span></div>
+    <div class="glass stat tilt rv"><b class="grad" data-count="7">0</b><span>Partner Schools</span></div>
+    <div class="glass stat tilt rv"><b class="grad" data-count="6">0</b><span>Days a Week</span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" data-hue="1">
+  <div class="wrap about-grid">
+    <div class="about-img rv">
+      <div class="frame tilt"><img src="https://i.pinimg.com/736x/6e/71/06/6e71067b2a74904828d15446d0363ca5.jpg" alt="About Wise Robotic & STEM"></div>
+      <div class="glass float-badge"><small>Our motto</small>We Learn to Earn</div>
+    </div>
+    <div>
+      <span class="eyebrow rv">About Us</span>
+      <h2 class="title rv">Where technology <span class="grad">meets creativity</span></h2>
+      <p class="rv">WiseRobotics is an innovative educational centre dedicated to teaching robotics, artificial intelligence, and coding to children. We empower young minds with the skills they need to thrive in the modern world of technology.</p>
+      <p class="rv">Through hands-on projects, interactive learning, and creative problem-solving, we nurture the next generation of engineers, innovators, and thinkers. "We Learn to Earn" reflects our commitment to skills that turn knowledge into opportunities.</p>
+      <ul class="checks">
+        <li class="rv"><i class="fas fa-check-circle"></i> Comprehensive curriculum from electronics to animation</li>
+        <li class="rv"><i class="fas fa-check-circle"></i> Industry-standard tools and software</li>
+        <li class="rv"><i class="fas fa-check-circle"></i> Project-based learning approach</li>
+        <li class="rv"><i class="fas fa-check-circle"></i> Certified instructors with industry experience</li>
+        <li class="rv"><i class="fas fa-check-circle"></i> Pathways to careers and higher education</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses" data-hue="2">
+  <div class="wrap center">
+    <span class="eyebrow rv">Programs</span>
+    <h2 class="title rv">Our <span class="grad">Courses</span></h2>
+    <p class="lead rv">Comprehensive programs combining technical and creative STEM disciplines.</p>
+    <div class="cards" style="text-align:left">
+      <article class="glass card tilt rv"><div class="img"><img src="assets/img/c1.jpg" alt="Basic Electronics"></div><div class="body"><h3>Basic Electronics (Levels 1-5)</h3><p>Master fundamental to advanced electronics concepts, circuit design, and prototyping through our progressive 5-level program.</p><div class="meta"><span class="chip">Beginner to Advanced</span><span>12 Weeks/Level</span></div></div></article>
+      <article class="glass card tilt rv"><div class="img"><img src="assets/img/c2.jpg" alt="Coding"></div><div class="body"><h3>Coding Fundamentals</h3><p>Learn programming basics with Block coding, Python and JavaScript, progressing to algorithms and data structures.</p><div class="meta"><span class="chip">Beginner to Advanced</span><span>14 Weeks</span></div></div></article>
+      <article class="glass card tilt rv"><div class="img"><img src="assets/img/c3.jpg" alt="AI Usage"></div><div class="body"><h3>AI Applications</h3><p>Practical applications of Artificial Intelligence including machine learning, computer vision, and natural language processing.</p><div class="meta"><span class="chip">Beginner to Advanced</span><span>14 Weeks</span></div></div></article>
+      <article class="glass card tilt rv"><div class="img"><img src="assets/img/c5.jpg" alt="Mobile App Development"></div><div class="body"><h3>Mobile & Website Development</h3><p>Build iOS and Android apps and websites using modern frameworks with emphasis on UI/UX design, PHP Laravel and Python Django.</p><div class="meta"><span class="chip">Beginner to Advanced</span><span>14 Weeks</span></div></div></article>
+      <article class="glass card tilt rv"><div class="img"><img src="assets/img/c4.jpg" alt="Robotics"></div><div class="body"><h3>Robotics Engineering</h3><p>Design, build and program robots integrating mechanical systems, electronics, and software.</p><div class="meta"><span class="chip">Beginner to Advanced</span><span>14 Weeks</span></div></div></article>
+      <article class="glass card tilt rv"><div class="img"><img src="assets/img/c6.jpg" alt="2D & 3D Animation"></div><div class="body"><h3>2D & 3D Animation</h3><p>Master digital animation techniques from traditional 2D to modern 3D modeling and rendering.</p><div class="meta"><span class="chip">All Levels</span><span>14 Weeks</span></div></div></article>
+    </div>
+    <div class="rv" style="margin-top:46px"><a href="/contact" class="btn primary">Enroll Now <i class="fas fa-arrow-right"></i></a></div>
+  </div>
+</section>
+
+<!-- STUDENT LIFE -->
+<section id="student-life" data-hue="0">
+  <div class="wrap center">
+    <span class="eyebrow rv">Student Life</span>
+    <h2 class="title rv">A vibrant <span class="grad">STEM community</span></h2>
+    <p class="lead rv">Experience our vibrant STEM learning community.</p>
+    <div class="life" style="text-align:left">
+      <div class="glass item tilt rv"><img src="assets/img/ab.jpg" alt="STEM Lab"><div class="txt"><h4>State-of-the-Art Labs</h4><p>Learn in our fully-equipped electronics, robotics, and computer labs with the latest technology.</p></div></div>
+      <div class="glass item tilt rv"><img src="assets/img/s1.jpg" alt="Hackathons"><div class="txt"><h4>Tech Competitions</h4><p>Participate in hackathons, robotics competitions, and animation festivals to showcase your skills.</p></div></div>
+      <div class="glass item tilt rv"><img src="assets/img/s2.jpg" alt="Workshops"><div class="txt"><h4>Expert Workshops</h4><p>Regular workshops with industry professionals from tech and creative fields.</p></div></div>
+      <div class="glass item tilt rv"><img src="assets/img/s3.jpg" alt="Project Showcase"><div class="txt"><h4>Project Showcases</h4><p>Present your work at our bi-annual STEM showcase events to peers and industry guests.</p></div></div>
+      <div class="glass item tilt rv"><img src="assets/img/c6.jpg" alt="Animation Studio"><div class="txt"><h4>Creative Studios</h4><p>Access our animation and design studios with professional-grade software and equipment.</p></div></div>
+      <div class="glass item tilt rv"><img src="assets/img/s5.jpg" alt="STEM Clubs"><div class="txt"><h4>Special Interest Clubs</h4><p>Join robotics teams, coding clubs, or animation groups based on your interests.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why-us" data-hue="1">
+  <div class="wrap center">
+    <span class="eyebrow rv">Why Us</span>
+    <h2 class="title rv">Why study <span class="grad">with us?</span></h2>
+    <p class="lead rv">We combine technical excellence with creative innovation.</p>
+    <div class="why" style="text-align:left">
+      <div class="glass feat tilt rv"><div class="ico pop"><i class="fas fa-laptop-code"></i></div><h4>Integrated Curriculum</h4><p>Unique programs that combine technical STEM skills with creative digital arts.</p></div>
+      <div class="glass feat tilt rv"><div class="ico pop"><i class="fas fa-user-graduate"></i></div><h4>Industry Experts</h4><p>Learn from instructors with real-world experience in tech and creative industries.</p></div>
+      <div class="glass feat tilt rv"><div class="ico pop"><i class="fas fa-users"></i></div><h4>Collaborative Learning</h4><p>Work in teams combining technical and creative skills.</p></div>
+      <div class="glass feat tilt rv"><div class="ico pop"><i class="fas fa-lightbulb"></i></div><h4>Innovation Focus</h4><p>Emphasis on creative problem-solving and innovative thinking.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos" data-hue="2">
+  <div class="wrap center">
+    <span class="eyebrow rv">Watch</span>
+    <h2 class="title rv">Featured <span class="grad">Videos</span></h2>
+    <p class="lead rv">See our programs and student work in action.</p>
+    <div class="video-showcase">
+      <div class="glass video-feature" id="video-player"><div class="video-empty"><i class="fas fa-film"></i><p>Featured videos will appear here.</p></div></div>
+      <div class="glass video-playlist" id="video-playlist" aria-label="Video playlist"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners" data-hue="0">
+  <div class="wrap center">
+    <span class="eyebrow rv">Partners</span>
+    <h2 class="title rv">Schools we <span class="grad">teach in</span></h2>
+    <p class="partners-copy rv">We are currently teaching robotics in several schools, where students are actively engaged in hands-on learning that blends science, technology, engineering, and mathematics (STEM).</p>
+    <p class="partners-copy rv">These programs foster creativity, critical thinking, and problem-solving through programmable robots and interactive lessons, equipping the next generation with the foundational skills for a tech-driven world.</p>
+  </div>
+  <div class="marquee">
+    <div class="track" id="track">
+      <div class="glass partner"><img src="assets/img/sunny.jpg" alt="SunnyRoses International School"><p>SunnyRoses International School</p></div>
+      <div class="glass partner"><img src="assets/img/vicgrace.jpg" alt="Vicgrace International Montessori School"><p>Vicgrace International Montessori School</p></div>
+      <div class="glass partner"><img src="assets/img/christ.jpg" alt="Christ Ambassadors School Of Excellence"><p>Christ Ambassadors School Of Excellence</p></div>
+      <div class="glass partner"><img src="assets/img/master.jpg" alt="MasterChamps International Preschool"><p>MasterChamps International Preschool</p></div>
+      <div class="glass partner"><img src="assets/img/westland.jpg" alt="Westlands Community School"><p>Westlands Community School</p></div>
+      <div class="glass partner"><img src="assets/img/mothers.gif" alt="Mothers' Joy International School"><p>Mothers' Joy International School</p></div>
+      <div class="glass partner"><img src="assets/img/victory.jpg" alt="Victory Standard School"><p>Victory Standard School</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" data-hue="1">
+  <div class="wrap center">
+    <span class="eyebrow rv">Contact</span>
+    <h2 class="title rv">Let's build <span class="grad">something</span></h2>
+    <p class="lead rv">Get in touch to learn more about our STEM programs.</p>
+    <div class="contact-grid" style="text-align:left">
+      <div class="glass info tilt rv">
+        <h4 style="margin-bottom:26px;font-size:1.3rem">Contact Information</h4>
+        <div class="row"><i class="fas fa-map-marker-alt"></i><div><h5>Address</h5><p>Old Ashongman, Pure Water road near Rose Wood Hotel</p></div></div>
+        <div class="row"><i class="fas fa-phone-alt"></i><div><h5>Phone</h5><p>+233 (24) 787-7676</p><p>+233 (55) 370-0705</p></div></div>
+        <div class="row"><i class="fas fa-envelope"></i><div><h5>Email</h5><p>info@wiseroboticstem.edu</p></div></div>
+        <div class="row"><i class="fas fa-clock"></i><div><h5>Hours</h5><p>Monday - Saturday: 8:00 AM - 7:00 PM</p></div></div>
+      </div>
+      <div class="rv">
+        <form id="contactForm" class="glass" action="https://formspree.io/f/xvgawllw" method="POST">
+          <div class="f2">
+            <div class="field"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" required></div>
+            <div class="field"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" required></div>
+          </div>
+          <div class="field"><label for="email">Email Address</label><input type="email" id="email" name="Email Address" required></div>
+          <div class="field"><label for="phone">Phone Number</label><input type="tel" id="phone" name="Phone Number"></div>
+          <div class="field"><label for="interest">Program Interest</label>
+            <select id="interest" name="Program">
+              <option value="">Select a program</option>
+              <option value="electronics">Basic Electronics</option>
+              <option value="coding">Coding Fundamentals</option>
+              <option value="ai">AI Applications</option>
+              <option value="mobile">Mobile & Website Development</option>
+              <option value="robotics">Robotics Engineering</option>
+              <option value="animation">2D & 3D Animation</option>
+            </select></div>
+          <div class="field"><label for="message">Message</label><textarea id="message" name="Message" rows="4"></textarea></div>
+          <label class="check"><input type="checkbox" id="newsletter" name="Newsletter" value="yes"> Subscribe to our newsletter</label>
+          <button type="submit" class="btn primary">Send Message <i class="fas fa-paper-plane"></i></button>
+          <p id="successMessage">Thank you! Your message has been sent.</p>
+        </form>
+      </div>
+    </div>
+    <div class="contact-map rv">
+      <iframe title="Dark road map to Wise Robotic &amp; STEM in Old Ashongman, Accra" src="https://www.google.com/maps?q=Old+Ashongman,+Pure+Water+Road+near+Rose+Wood+Hotel,+Accra,+Ghana&amp;t=m&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="brand" style="margin-bottom:14px"><img src="assets/img/logo 1.png" alt="Wise Robotic & STEM Logo"><span>Wise Robotic & STEM</span></div>
+        <p>Bridging technology and creativity through innovative STEM education for the digital age.</p>
+        <div class="social">
+          <a href="http://www.facebook.com/groups/3968194210082386/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <div class="flinks"><a href="/">Home</a><a href="/about">About</a><a href="/student-life">Student Life</a><a href="/contact">Contact</a></div>
+      </div>
+      <div>
+        <h5>Newsletter</h5>
+        <p>Subscribe for updates on programs and events.</p>
+        <form class="news" action="https://formspree.io/f/xvgawllw" method="POST">
+          <input type="email" name="Newsletter Email" placeholder="Your Email" aria-label="Your Email" required>
+          <button class="btn primary" type="submit" style="padding:12px 20px">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="copy">
+      <span>&copy; <span id="yr">2026</span> Wise Robotic & STEM. All rights reserved.</span>
+      <span>Powered by <a href="https://etoreric.github.io/ricset/" style="color:var(--accent)">Ricset</a></span>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="to-top" id="toTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  /* ---------- UI helpers ---------- */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var nav = document.getElementById('navbar'), menu = document.getElementById('menu');
+  document.getElementById('burger').onclick = function(){ menu.classList.toggle('open'); };
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ menu.classList.remove('open'); }); });
+
+  // reveal
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el,i){ el.style.transitionDelay = ((i%4)*80)+'ms'; io.observe(el); });
+
+  // counters
+  var cio = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return; cio.unobserve(e.target);
+      var t0 = performance.now();
+      (function tick(t){ var p = Math.min((t-t0)/1400,1), end = +e.target.dataset.count; e.target.textContent = Math.round(end*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(tick); })(t0);
+    });
+  },{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
+
+  // tilt cards
+  document.querySelectorAll('.tilt').forEach(function(el){
+    el.addEventListener('mousemove', function(e){
+      if(reduce) return;
+      var r = el.getBoundingClientRect(), x = (e.clientX-r.left)/r.width-.5, y = (e.clientY-r.top)/r.height-.5;
+      el.style.transform = 'perspective(900px) rotateY('+(x*14)+'deg) rotateX('+(-y*14)+'deg) translateZ(10px)';
+    });
+    el.addEventListener('mouseleave', function(){ el.style.transform=''; });
+  });
+
+  // marquee duplicate
+  var track = document.getElementById('track');
+  Array.from(track.children).forEach(function(item){ var clone=item.cloneNode(true); clone.classList.add('marquee-copy'); clone.setAttribute('aria-hidden','true'); track.appendChild(clone); });
+
+  // cursor
+  var cur = document.getElementById('cur'), ring = document.getElementById('ring');
+  var mx=innerWidth/2, my=innerHeight/2, rx=mx, ry=my;
+  addEventListener('mousemove', function(e){ mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+  (function loop(){ rx+=(mx-rx)*.15; ry+=(my-ry)*.15; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a,button,.tilt,input,select,textarea').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ ring.classList.add('hot'); });
+    el.addEventListener('mouseleave', function(){ ring.classList.remove('hot'); });
+  });
+
+  // pause videos out of view
+  var vio = new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) e.target.pause(); }); },{threshold:.1});
+  document.querySelectorAll('video').forEach(function(v){ vio.observe(v); });
+
+  // form
+  var form = document.getElementById('contactForm'), ok = document.getElementById('successMessage');
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+      .then(function(r){ if(r.ok){ ok.style.display='block'; form.reset(); } else { alert('Oops! Something went wrong. Please try again.'); } })
+      .catch(function(){ alert('Oops! Something went wrong. Please try again.'); });
+  });
+
+  /* ---------- scroll state ---------- */
+  var progress = document.getElementById('progress'), toTop = document.getElementById('toTop');
+  var scrollP = 0;
+  function onScroll(){
+    var max = document.documentElement.scrollHeight - innerHeight;
+    scrollP = max>0 ? scrollY/max : 0;
+    progress.style.width = (scrollP*100)+'%';
+    nav.classList.toggle('scrolled', scrollY>40);
+    toTop.classList.toggle('on', scrollY>500);
+  }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  toTop.addEventListener('click', function(e){ e.preventDefault(); scrollTo({top:0,behavior:'smooth'}); });
+
+  /* ---------- THREE.js scene ---------- */
+  function hideLoader(){ document.getElementById('loader').classList.add('done'); }
+  if(typeof THREE === 'undefined'){ hideLoader(); return; }
+
+  var canvas = document.getElementById('scene');
+  var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x05060f, .035);
+  var camera = new THREE.PerspectiveCamera(50, 1, .1, 200);
+  camera.position.set(0,0,9);
+
+  var key = new THREE.PointLight(0x22d3ee, 2.2, 40); key.position.set(4,4,6); scene.add(key);
+  var fill = new THREE.PointLight(0xa855f7, 2, 40); fill.position.set(-6,-2,4); scene.add(fill);
+  scene.add(new THREE.AmbientLight(0x6670aa, .7));
+
+  var palette = [new THREE.Color(0x22d3ee), new THREE.Color(0xa855f7), new THREE.Color(0xf59e0b)];
+  var glowCol = palette[0].clone(), glowTarget = palette[0];
+
+  // --- robot ---
+  var robot = new THREE.Group(); scene.add(robot);
+  var bodyMat = new THREE.MeshStandardMaterial({color:0x151a3d, metalness:.85, roughness:.25});
+  var darkMat = new THREE.MeshStandardMaterial({color:0x070918, metalness:.9, roughness:.15});
+  var eyeMat = new THREE.MeshBasicMaterial({color:0x22d3ee});
+  var edgeMat = new THREE.LineBasicMaterial({color:0x22d3ee, transparent:true, opacity:.8});
+  function edged(mesh){ var l = new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry), edgeMat); mesh.add(l); return mesh; }
+
+  var head = new THREE.Group(); robot.add(head);
+  var skull = edged(new THREE.Mesh(new THREE.BoxGeometry(2.1,1.7,1.8), bodyMat)); head.add(skull);
+  var visor = new THREE.Mesh(new THREE.BoxGeometry(1.7,.7,.1), darkMat); visor.position.set(0,.05,.92); head.add(visor);
+  var eyeL = new THREE.Mesh(new THREE.SphereGeometry(.17,24,24), eyeMat); eyeL.position.set(-.45,.05,1); head.add(eyeL);
+  var eyeR = eyeL.clone(); eyeR.position.x = .45; head.add(eyeR);
+  var mouth = new THREE.Mesh(new THREE.BoxGeometry(.7,.07,.05), eyeMat); mouth.position.set(0,-.55,.92); head.add(mouth);
+  var earGeo = new THREE.CylinderGeometry(.35,.35,.3,24);
+  var earL = edged(new THREE.Mesh(earGeo, bodyMat)); earL.rotation.z = Math.PI/2; earL.position.set(-1.25,0,0); head.add(earL);
+  var earR = earL.clone(); earR.position.x = 1.25; head.add(earR);
+  var ant = new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,.7,8), darkMat); ant.position.set(0,1.2,0); head.add(ant);
+  var antBall = new THREE.Mesh(new THREE.SphereGeometry(.14,16,16), eyeMat); antBall.position.set(0,1.62,0); head.add(antBall);
+  head.position.y = 1.3;
+
+  var neck = new THREE.Mesh(new THREE.CylinderGeometry(.3,.4,.4,16), darkMat); neck.position.y = .2; robot.add(neck);
+  var torso = edged(new THREE.Mesh(new THREE.BoxGeometry(1.7,1.6,1.1), bodyMat)); torso.position.y = -.8; robot.add(torso);
+  var core = new THREE.Mesh(new THREE.OctahedronGeometry(.28), eyeMat); core.position.set(0,-.7,.6); robot.add(core);
+  var armL = edged(new THREE.Mesh(new THREE.BoxGeometry(.4,1.3,.45), bodyMat)); armL.position.set(-1.25,-.75,0); robot.add(armL);
+  var armR = armL.clone(); armR.position.x = 1.25; robot.add(armR);
+
+  // orbiting rings
+  var rings = [];
+  [2.9,3.5,4.1].forEach(function(r,i){
+    var m = new THREE.Mesh(new THREE.TorusGeometry(r,.012,8,160), new THREE.MeshBasicMaterial({color:palette[i], transparent:true, opacity:.55}));
+    m.rotation.x = Math.PI/2 + (i-1)*.5; m.rotation.y = i*.6; robot.add(m); rings.push(m);
+  });
+
+  // --- floating wireframe shapes ---
+  var shapes = [];
+  var geos = [new THREE.IcosahedronGeometry(1,0), new THREE.OctahedronGeometry(1,0), new THREE.TorusKnotGeometry(.7,.22,90,12), new THREE.BoxGeometry(1.3,1.3,1.3), new THREE.TetrahedronGeometry(1.1)];
+  for(var i=0;i<14;i++){
+    var mat = new THREE.MeshBasicMaterial({color:palette[i%3], wireframe:true, transparent:true, opacity:.35});
+    var m = new THREE.Mesh(geos[i%geos.length], mat);
+    var s = .35 + Math.random()*.7; m.scale.setScalar(s);
+    m.position.set((Math.random()-.5)*26, (Math.random()-.5)*22 - scrollP*0, -4 - Math.random()*18);
+    m.userData = {sp:new THREE.Vector3(Math.random()*.01+.002, Math.random()*.01+.002, 0), base:m.position.y, ph:Math.random()*6.28, depth:m.position.z};
+    scene.add(m); shapes.push(m);
+  }
+
+  // --- particles ---
+  var N = 1400, pos = new Float32Array(N*3);
+  for(var j=0;j<N;j++){ pos[j*3]=(Math.random()-.5)*60; pos[j*3+1]=(Math.random()-.5)*60; pos[j*3+2]=-Math.random()*50+10; }
+  var pg = new THREE.BufferGeometry(); pg.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  var pm = new THREE.PointsMaterial({color:0x9fb4ff, size:.06, transparent:true, opacity:.8, depthWrite:false});
+  var points = new THREE.Points(pg, pm); scene.add(points);
+
+  // --- circuit grid floor ---
+  var grid = new THREE.GridHelper(120, 60, 0x22d3ee, 0x1b2150);
+  grid.position.y = -7; grid.material.transparent = true; grid.material.opacity = .35; scene.add(grid);
+
+  /* resize */
+  var isMobile = false;
+  function resize(){
+    var w = innerWidth, h = innerHeight;
+    renderer.setSize(w,h,false); camera.aspect = w/h; camera.updateProjectionMatrix();
+    isMobile = w < 900;
+  }
+  addEventListener('resize', resize); resize();
+
+  /* section hue */
+  var sio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ glowTarget = palette[+e.target.dataset.hue || 0]; } });
+  },{threshold:.4});
+  document.querySelectorAll('section[data-hue]').forEach(function(s){ sio.observe(s); });
+
+  /* mouse */
+  var nx=0, ny=0;
+  addEventListener('mousemove', function(e){ nx = e.clientX/innerWidth*2-1; ny = -(e.clientY/innerHeight*2-1); });
+  addEventListener('touchmove', function(e){ var t=e.touches[0]; nx = t.clientX/innerWidth*2-1; ny = -(t.clientY/innerHeight*2-1); },{passive:true});
+
+  var clock = new THREE.Clock(), smoothP = 0, tx = 0, ty = 0, ts = 1;
+  function frame(){
+    var t = clock.getElapsedTime();
+    smoothP += (scrollP - smoothP) * .06;
+
+    // glow color lerp
+    glowCol.lerp(glowTarget, .04);
+    eyeMat.color.copy(glowCol); edgeMat.color.copy(glowCol); key.color.copy(glowCol); grid.material.color.copy(glowCol);
+
+    // robot placement: right side in hero, then weaves side to side and shrinks
+    var heroWeight = Math.max(0, 1 - smoothP*9);
+    var side = Math.sin(smoothP * Math.PI * 7);
+    tx = isMobile ? 0 : (2.6*heroWeight + side*3.4*(1-heroWeight));
+    ty = isMobile ? (1.8*heroWeight - .6*(1-heroWeight)) : (-.2 - smoothP*1.2);
+    ts = isMobile ? (.55*heroWeight + .3*(1-heroWeight)) : (.95*heroWeight + .55*(1-heroWeight));
+    robot.position.x += (tx - robot.position.x)*.06;
+    robot.position.y += (ty + Math.sin(t*1.4)*.18 - robot.position.y)*.06;
+    var sc = robot.scale.x + (ts - robot.scale.x)*.06; robot.scale.setScalar(sc);
+    robot.rotation.y = Math.sin(t*.4)*.25 + smoothP*Math.PI*6 * (1-heroWeight)*.15 + nx*.25;
+
+    // head follows cursor
+    head.rotation.y += (nx*.7 - head.rotation.y)*.08;
+    head.rotation.x += (-ny*.4 - head.rotation.x)*.08;
+    var blink = (Math.sin(t*1.7)>.985) ? .1 : 1; eyeL.scale.y = eyeR.scale.y = blink;
+    antBall.scale.setScalar(1 + Math.sin(t*5)*.25);
+    core.rotation.y = t*2; core.rotation.x = t;
+    armL.rotation.x = Math.sin(t*1.6)*.25; armR.rotation.x = -Math.sin(t*1.6)*.25;
+    rings.forEach(function(r,i){ r.rotation.z = t*(.25+i*.12)*(i%2?-1:1); });
+
+    // shapes
+    shapes.forEach(function(m){
+      m.rotation.x += m.userData.sp.x; m.rotation.y += m.userData.sp.y;
+      m.position.y = m.userData.base + Math.sin(t*.5 + m.userData.ph)*.6 + smoothP*14*(m.userData.depth/-10);
+    });
+
+    // camera: parallax + scroll fly-through
+    camera.position.x += (nx*.8 - camera.position.x)*.04;
+    camera.position.y += (ny*.5 - camera.position.y)*.04;
+    camera.position.z = 9 - smoothP*6;
+    camera.lookAt(0,0,0);
+
+    points.rotation.y = t*.015 + smoothP*1.2;
+    points.rotation.x = smoothP*.5;
+    grid.position.z = (t*1.2)%2;
+
+    renderer.render(scene, camera);
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  frame();
+  if(reduce){ renderer.render(scene, camera); }
+  setTimeout(hideLoader, 600);
+  addEventListener('load', hideLoader);
+})();
+</script>
+<script src="/assets/site-content.js"></script>
+</body>
+</html>
